@@ -25,6 +25,8 @@
   (add-hook! 'text-mode-hook #'MyTextHook)
   )
 
+(add-hook! 'python-mode-hook #'MyPythonHook)
+
 ;; C/C++ style hook
 (defun MyCHook ()
   (setq c-doc-comment-style
@@ -79,12 +81,13 @@
   ;;  (c-set-offset 'case-label '+)
   )
 
-;;(defun MyPythonHook ()
-;;  (setq fci-rule-column '80)
-;;  (setq fci-rule-width 5)
-;;  (fci-mode)
-;;
-;;  (setq indent-tabs-mode nil)
-;;
-;;  (which-func-mode)
-;;  )
+(defun MyPythonHook ()
+  (setq-local fci-rule-column '80)
+  (setq-local fci-rule-width 5)
+  (fci-mode)
+  (message "afdsafdsafdsa")
+
+  ;;(setq indent-tabs-mode nil)
+
+  (which-func-mode)
+  )
