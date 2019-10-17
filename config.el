@@ -25,6 +25,10 @@
   (add-hook! 'text-mode-hook #'MyTextHook)
   )
 
+(after! format-all
+  (set-formatter! 'autopep8 '("autopep8" "--aggressive" "--aggressive" "-") :modes '(python-mode))
+  )
+
 (add-hook! 'python-mode-hook #'MyPythonHook)
 
 ;; C/C++ style hook
@@ -85,9 +89,12 @@
   (setq-local fci-rule-column '80)
   (setq-local fci-rule-width 5)
   (fci-mode)
-  (message "afdsafdsafdsa")
+
+  (setq display-line-numbers nil)
 
   ;;(setq indent-tabs-mode nil)
 
   (which-func-mode)
   )
+
+;;(set-formatter! 'clang-format \"clang-format\" :modes '(c-mode))
