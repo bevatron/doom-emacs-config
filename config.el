@@ -31,6 +31,8 @@
 
 (add-hook! 'python-mode-hook #'MyPythonHook)
 
+(add-hook! 'asm-mode-hook #'MyASMHook)
+
 ;; C/C++ style hook
 (defun MyCHook ()
   (setq c-doc-comment-style
@@ -53,7 +55,8 @@
   (setq tab-width 8)
   (setq indent-tabs-mode t)
 
-  ;; (lsp)
+  ;; add hoook manually since (format +save) break curor of other window for the same buffer
+  (add-hook! 'before-save-hook #'+format/buffer)
 
   (c-set-offset 'innamespace 0)
   (c-set-offset 'substatement-open 0)
@@ -94,7 +97,21 @@
 
   ;;(setq indent-tabs-mode nil)
 
+  ;; add hoook manually since (format +save) break curor of other window for the same buffer
+  (add-hook! 'before-save-hook #'+format/buffer)
+
   (which-func-mode)
+  )
+
+(defun MyASMHook ()
+  (setq-local fci-rule-column '80)
+  (setq-local fci-rule-width 5)
+  (fci-mode)
+
+  (setq display-line-numbers nil)
+  (setq indent-tabs-mode t)
+
+  (whitespace-mode)
   )
 
 ;;(set-formatter! 'clang-format \"clang-format\" :modes '(c-mode))
