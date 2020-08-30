@@ -5,6 +5,8 @@
 ;; tab-width
 ;;(setq tab-width 8)
 
+(setq display-line-numbers-type nil)
+
 ;; font set
 (setq doom-font (font-spec :family "Source Code Pro" :size 16)
       doom-variable-pitch-font (font-spec :family "Source Code Pro")
@@ -16,6 +18,18 @@
   (add-hook! 'c-mode-hook #'MyCHook)
   (add-hook! 'c++-mode-hook #'MyCHook)
   (add-hook! 'java-mode-hook #'MyCHook)
+
+  (map! :after cc-mode :map c-mode-base-map :leader
+        (:prefix-map ("s" . "search")
+         :desc "Jump to char"    "c" #'evil-avy-goto-char
+         ))
+  )
+
+(after! lsp-mode
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 1024))
+  (setq lsp-idle-delay 1.500)
+  (setq lsp-enable-file-watchers nil)
   )
 
 (after! text-mode
@@ -25,8 +39,13 @@
   (add-hook! 'text-mode-hook #'MyTextHook)
   )
 
-(after! format-all
+(after! format
   (set-formatter! 'autopep8 '("autopep8" "--aggressive" "--aggressive" "-") :modes '(python-mode))
+  (setq +format-with 'clang-format)
+  (setq +format-on-save-enabled-modes
+        '(not sql-mode         ; sqlformat is currently broken
+              tex-mode         ; latexindent is broken
+              latex-mode))
   )
 
 (add-hook! 'python-mode-hook #'MyPythonHook)
@@ -44,8 +63,6 @@
   (setq fci-rule-width 5)
   (fci-mode)
 
-  (setq display-line-numbers nil)
-
   (whitespace-mode)
 
   (which-func-mode)
@@ -56,7 +73,7 @@
   (setq indent-tabs-mode t)
 
   ;; add hoook manually since (format +save) break curor of other window for the same buffer
-  (add-hook! 'before-save-hook #'+format/buffer)
+  (add-hook! 'before-save-hook #'format-all-buffer)
 
   (c-set-offset 'innamespace 0)
   (c-set-offset 'substatement-open 0)
@@ -64,6 +81,8 @@
   (setq comment-start "/* " comment-end " */")
   ;;  (c-set-offset 'case-label '+)
   (c-toggle-comment-style -1)
+
+  (setq display-line-numbers nil)
   )
 
 (defun MyTextHook ()
@@ -72,6 +91,8 @@
   (fci-mode)
 
   (whitespace-mode)
+
+  (setq display-line-numbers nil)
 
   ;; "setup shared by all languages (java/groovy/c++ ...)"
   (setq-local c-basic-offset 8)
@@ -98,7 +119,7 @@
   ;;(setq indent-tabs-mode nil)
 
   ;; add hoook manually since (format +save) break curor of other window for the same buffer
-  (add-hook! 'before-save-hook #'+format/buffer)
+  (add-hook! 'before-save-hook #'format-all-buffer)
 
   (which-func-mode)
   )
