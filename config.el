@@ -8,7 +8,7 @@
 (setq display-line-numbers-type nil)
 
 ;; font set
-(setq doom-font (font-spec :family "Source Code Pro" :size 16)
+(setq doom-font (font-spec :family "Source Code Pro" :size 14)
       doom-variable-pitch-font (font-spec :family "Source Code Pro")
       doom-unicode-font (font-spec :family "DejaVu Sans Mono")
       doom-big-font (font-spec :family "Source Code Pro" :size 23))
@@ -30,6 +30,7 @@
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-idle-delay 1.500)
   (setq lsp-enable-file-watchers nil)
+  (setq lsp-diagnostic-package :none)
   )
 
 (after! text-mode
