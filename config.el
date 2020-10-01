@@ -49,6 +49,12 @@
               latex-mode))
   )
 
+(after! whitespace
+  (unless (eq initial-window-system 'x)                 ; if started by emacs command or desktop file
+    ;;(face-remap-add-relative 'whitespace-tab '(:foreground "darkgray" :background "grey22")))
+    (face-remap-add-relative 'whitespace-tab '(:foreground "grey30" :background "grey2")))
+    )
+
 (add-hook! 'python-mode-hook #'MyPythonHook)
 
 (add-hook! 'asm-mode-hook #'MyASMHook)

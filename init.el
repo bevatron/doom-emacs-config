@@ -18,6 +18,9 @@
        ;;ido               ; the other *other* search engine...
        ivy               ; a search engine for love and life
 
+       :os
+       (tty +osc)
+
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
