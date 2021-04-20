@@ -22,9 +22,18 @@ This backend prefers \"just working\" over accuracy."
   (counsel-etags-find-tag-at-point)
   )
 
-(message "hahaha in the ccc mode")
-
 (after! cc-mode
-  (message "in the prifvate module")
   (push `+lookup-counsel-ctags-backend-fn +lookup-definition-functions)
+  )
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+  )
+
+(use-package flycheck-clang-tidy
+  :after flycheck
+  :hook
+  (flycheck-mode . flycheck-clang-tidy-setup)
+  :init (setq flycheck-clang-tidy-executable "clang-tidy-12")
   )

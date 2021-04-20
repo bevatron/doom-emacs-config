@@ -86,7 +86,6 @@
         +ivy)        ; ...or in Dash docsets locally
        ;;(lsp
        ;; +eglot)
-       ;;lsp
        ;;(lsp +peek)
        ;;macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
@@ -177,7 +176,6 @@
 
        :dev
        cc-mode
-
 
        :config
        ;; For literate config users. This will tangle+compile a config.org
