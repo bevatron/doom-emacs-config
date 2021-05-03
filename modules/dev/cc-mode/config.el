@@ -37,3 +37,7 @@ This backend prefers \"just working\" over accuracy."
   (flycheck-mode . flycheck-clang-tidy-setup)
   :init (setq flycheck-clang-tidy-executable "clang-tidy-12")
   )
+
+(after! company
+  (add-to-list 'company-backends 'company-etags)
+  )

@@ -177,6 +177,9 @@
        :dev
        cc-mode
 
+       :checkers
+       spell
+
        :config
        ;; For literate config users. This will tangle+compile a config.org
        ;; literate config in your `doom-private-dir' whenever it changes.

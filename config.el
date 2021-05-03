@@ -73,6 +73,8 @@
 
   (whitespace-mode)
 
+  (spell-fu-mode)
+
   (which-func-mode)
 
   ;; "setup shared by all languages (java/groovy/c++ ...)"
