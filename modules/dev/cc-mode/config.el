@@ -41,3 +41,49 @@ This backend prefers \"just working\" over accuracy."
 (after! company
   (add-to-list 'company-backends 'company-etags)
   )
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (cc-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp
+  :config
+  ;; enable log only for debug
+  (setq lsp-log-io nil)
+
+  ;; use `evil-matchit' instead
+  (setq lsp-enable-folding nil)
+
+  ;; no real time syntax check
+  (setq lsp-prefer-flymake :none)
+
+  ;; handle yasnippet by myself
+  (setq lsp-enable-snippet nil)
+
+  ;; use `company-ctags' only.
+  ;; Please note `company-lsp' is automatically enabled if installed
+  (setq lsp-enable-completion-at-point nil)
+
+  ;; turn off for better performance
+  (setq lsp-enable-symbol-highlighting nil)
+
+  ;; use ffip instead
+  (setq lsp-enable-links nil)
+
+  ;; don't scan some files
+  (push "[/\\\\][^/\\\\]*\\.json$" lsp-file-watch-ignored) ; json
+
+  ;; don't ping LSP lanaguage server too frequently
+  (defvar lsp-on-touch-time 0)
+
+  (defadvice lsp-on-change (around lsp-on-change-hack activate)
+    ;; don't run `lsp-on-change' too frequently
+    (when (> (- (float-time (current-time))
+                lsp-on-touch-time) 30) ;; 30 seconds
+      (setq lsp-on-touch-time (float-time (current-time)))
+      ad-do-it))
+  )
